@@ -3,7 +3,8 @@
 // Homework 1
 // due 1/21/2025
 // This program computes how many months it takes to pay off a loan
-// and the amount of interest paid in total
+// and the amount of interest paid in total and also if the monthly
+// payment is too low and if the inputs are negative
 //*******************************************************************
 
 #include <iostream>
@@ -12,7 +13,7 @@
 using namespace std;
 
 int main() {
-    // deaclaring the needed variables as a double
+    // declaring the needed variables as a double
     double loan, yearInt, monthPayment, monthCount, monthlyInt, totalInt;
     // setting our month count and total 
     monthCount = 0;
@@ -26,12 +27,27 @@ int main() {
     cin >> yearInt;
     cout << "Please input Monthly payment amount:\n";
     cin >> monthPayment;
+
+    // Input validation
+    if (loan <= 0 || yearInt <= 0 || monthPayment <= 0) {
+        cout << "The input is invalid please provide positive values for all inputs.\n";
+        return 1;
+    }
+
     // Calculate the monthly interest rate
-    double monthInt = (yearInt / 12)/100;
-    // A lop that goes through every month untill the loan is > 0
-    while (loan >  0)
-    {
-        monthlyInt = loan * monthInt;
+    double monthlyIntRate = (yearInt / 12) / 100;
+
+    // Calculate minimum payment needed
+    double minPayment = loan * monthlyIntRate;
+    if (monthPayment <= minPayment) {
+        cout << "Monthly payment is too low to cover the interest. Minimum payment needed: $" 
+             << fixed << setprecision(2) << minPayment + 0.01 << endl;
+        return 1;
+    }
+
+    // A loop that goes through every month until the loan is > 0
+    while (loan > 0) {
+        monthlyInt = loan * monthlyIntRate;
         // Adding the monthly interest to the total interest
         totalInt += monthlyInt;
         // Calculating the amount of money that is going to 
@@ -39,11 +55,12 @@ int main() {
         double payNow = monthPayment - monthlyInt;
         loan -= payNow;
         // Keeping in mind the count of months
-        monthCount ++;
-
+        monthCount++;
     }
-    // Printing out the results
-    cout << "It will take " << monthCount << " months to pay off the loan.";
-    cout << fixed << setprecision(2) << "You will have to pay " << totalInt << "$ in interest.";    
 
+    // Printing out the results
+    cout << "It will take " << monthCount << " months to pay off the loan.\n";
+    cout << fixed << setprecision(2) << "You will have to pay $" << totalInt << " in interest." << endl;    
+
+    return 0;
 }
