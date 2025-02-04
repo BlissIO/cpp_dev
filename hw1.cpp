@@ -1,7 +1,4 @@
 //*******************************************************************
-// Rayane EL YASTI
-// Homework 1
-// due 1/21/2025
 // This program computes how many months it takes to pay off a loan
 // and the amount of interest paid in total
 //*******************************************************************

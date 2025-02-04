@@ -1,7 +1,4 @@
 //*******************************************************************
-// Rayane EL YASTI
-// Homework 2
-// due 1/28/2025
 // This program implements a sorted array data structure that maintains
 // numbers in ascending order. It provides the following operations:
 // - insert: adds a new number while maintaining sorted order
